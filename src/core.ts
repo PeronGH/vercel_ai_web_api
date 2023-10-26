@@ -29,9 +29,5 @@ export async function* generate<C extends ChatConfig>(
     );
   }
 
-  const textStream = response.body!.pipeThrough(new TextDecoderStream());
-
-  for await (const token of textStream) {
-    yield token;
-  }
+  yield* response.body!.pipeThrough(new TextDecoderStream());
 }
